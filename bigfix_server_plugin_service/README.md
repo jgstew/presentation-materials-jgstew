@@ -3,12 +3,7 @@ This covers how to setup things in a development capacity for use in a class or 
 
 ## BigFix Server Plugin Service
 
-Setup:
-
-- Install GIT
-- Install Python
-- Install BESAPI dependency with PIP
-- Install Server Plugin Service (using REST API or fixlets)
+Open [plugin_service.code-workspace](plugin_service.code-workspace) in Visual Studio Code to have the folders available to work with for these exercises.
 
 ## Labs
 
