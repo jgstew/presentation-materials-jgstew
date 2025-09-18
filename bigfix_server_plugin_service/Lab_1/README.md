@@ -1,7 +1,7 @@
 
 ## For Windows Root Servers:
 
-Copy `fake_example_win.xml` file to `C:\Program Files (x86)\BigFix Enterprise\BES Server\Applications\Config` folder
+Copy [`fake_example_win.xml`](fake_example_win.xml) file to `C:\Program Files (x86)\BigFix Enterprise\BES Server\Applications\Config` folder
 
 Wait for fake example plugin to run, which should be quick.
 
