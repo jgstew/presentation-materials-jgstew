@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<BESPluginRegistration>
+	<Name>get-service-config</Name>
+	<Command>cmd /C echo FakeExample.exe -besserver %BESHTTP% -r %RESTURL% -u %MOUSERNAME% > C:\bigfix_example_plugin_output.txt</Command>
+	<Schedule>
+		<WaitPeriodSeconds>600</WaitPeriodSeconds>
+	</Schedule>
+	<ForceKill>true</ForceKill>
+</BESPluginRegistration>
