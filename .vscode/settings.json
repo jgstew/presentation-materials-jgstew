@@ -1,4 +1,7 @@
 {
   "editor.formatOnSave": true,
-  "git.autofetch": true
+  "git.autofetch": true,
+  "workbench.editorAssociations": {
+    //"*.md": "vscode.markdown.preview.editor"
+  }
 }
