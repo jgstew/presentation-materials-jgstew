@@ -9,3 +9,7 @@ Setup:
 - Install Python
 - Install BESAPI dependency with PIP
 - Install Server Plugin Service (using REST API or fixlets)
+
+## Labs
+
+- [Lab 1](Lab_1)
