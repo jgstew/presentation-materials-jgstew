@@ -1,5 +1,7 @@
 # Lab 0
 
+[Lab 0 Folder](../Lab_0/)
+
 ## Setup Environment
 
 - Install VSCode

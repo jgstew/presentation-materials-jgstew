@@ -1,7 +1,8 @@
 # Lab 3
 
-Setup [computer_group_output.py](../Lab_2/computer_group_output.py) as a BigFix Server Plugin Service
+[Lab 3 Folder](../Lab_3/)
 
+Setup [computer_group_output.py](../Lab_2/computer_group_output.py) as a BigFix Server Plugin Service
 
 ## Setup Plugin
 
@@ -18,7 +19,6 @@ Now open the folder `C:\Program Files (x86)\BigFix Enterprise\BES Server\Applica
 Copy [computer_group_output.xml](computer_group_output.xml) to the folder.
 
 It should now be located: `C:\Program Files (x86)\BigFix Enterprise\BES Server\Applications\Config\computer_group_output.xml`
-
 
 ## Check Output
 

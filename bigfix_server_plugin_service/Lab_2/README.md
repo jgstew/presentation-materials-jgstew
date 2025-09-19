@@ -1,5 +1,7 @@
 # Lab 2
 
+[Lab 2 Folder](../Lab_2/)
+
 Run this as a python script. Will run it as a BigFix Server Plugin Service in the next lab.
 
 ## Install BESAPI Python Module
