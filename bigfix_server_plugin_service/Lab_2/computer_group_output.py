@@ -126,7 +126,7 @@ def main():
         # split group_members_str on member_join_str
         group_members = group_members_str.split(member_join_str)
 
-        logging.info("GroupName: %s with %d members", group_name, len(group_members))
+        logging.info("GroupName: %s  > %d members", group_name, len(group_members))
         logging.debug("GroupMembers: %s", string_truncate(group_members_str))
 
         # write group members to file
