@@ -51,3 +51,7 @@ Now do this again with even more verbose output:
 ```
 python Lab_2/computer_group_output.py -vv
 ```
+
+## Next Lab:
+
+[Lab 3](../Lab_3/README.md)
