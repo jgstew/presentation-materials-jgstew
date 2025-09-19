@@ -6,6 +6,6 @@ Open [plugin_service.code-workspace](plugin_service.code-workspace) in Visual St
 
 ## Labs
 
-- [Lab 1](Lab_1)
-- [Lab 2](Lab_2)
-- [Lab 3](Lab_3)
+- [Lab 1](Lab_1/README.md)
+- [Lab 2](Lab_2/README.md)
+- [Lab 3](Lab_3/README.md)
