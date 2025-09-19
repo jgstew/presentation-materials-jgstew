@@ -12,11 +12,15 @@ Run the command:
 python -m pip install --upgrade besapi
 ```
 
-Might also need to run this on windows:
+<details><summary>If you get an error:: ModuleNotFoundError: No module named 'win32crypt'</summary>
+
+Need to run this on windows:
 
 ```
 python -m pip install --upgrade pywin32
 ```
+
+</details>
 
 ## Run example computer_group_output.py
 
