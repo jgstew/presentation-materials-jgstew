@@ -65,7 +65,7 @@ wait __Download\DockerDesktopInstaller.exe install --quiet
 					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
 					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "Docker Desktop") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "4.45.0") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "Docker Desktop") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
 					<Delay>PT1S</Delay>
-				</BaselineComponent>ß
+				</BaselineComponent>
 				<BaselineComponent Name="Update: Microsoft Visual C++ 2015-2022 Redistributable (x64) v14.44.35211.0 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="5602201" SyncStatus="synchronized" ActionName="Action1">
 					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
 // Download:
