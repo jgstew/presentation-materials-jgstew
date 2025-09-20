@@ -48,8 +48,10 @@ Import `Lab_4/example_baseline_outdated.bes` into the BigFix Console.
 
 Check the components of the baseline and note how they are out of date.
 
-- Mozilla Firefox (x64) 142.0
-- Google Chrome 139.0.7258.155
+- DB Browser for SQLite v3.13.1
+- Node.js v24.6.0
+
+And others
 
 ## Trigger update of baseline:
 

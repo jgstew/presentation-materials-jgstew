@@ -1,248 +1,526 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
 	<Baseline>
-		<Title>Remediations from Updates for Windows Applications</Title>
+		<Title>Custom Patching Baseline - Windows Extended</Title>
 		<Description></Description>
-		<Relevance><![CDATA[( exists absolute values whose(it < 60 * day) of (current date - "28 Aug 2025" as date) )]]></Relevance>
+		<Relevance>true</Relevance>
 		<MIMEField>
 			<Name>x-fixlet-modification-time</Name>
-			<Value>Thu, 28 Aug 2025 20:48:03 +0000</Value>
+			<Value>Wed, 03 Sep 2025 02:24:39 +0000</Value>
 		</MIMEField>
-		<Delay>PT12H</Delay>
 		<BaselineComponentCollection>
 			<BaselineComponentGroup>
-				<BaselineComponent Name="Notepad++ 8.8.5 Available" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateswindowsapps" SourceID="4001323" SyncStatus="synchronized" ActionName="Action1">
-					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch npp.8.8.5.Installer.exe sha1:eaf46c1cff17458b28bfd2fef41045de0bdbf4c3 size:6722640 https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.8.5/npp.8.8.5.Installer.exe sha256:05abc57952974d08feafa399d6fdb37945a3fd0a10f37833dd837a5788e421d5
+				<BaselineComponent Name="Update: 7-Zip (MSI) v25.01 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="200101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch 7zip-x64.msi sha1:15e3c8accdd5f7631a460be8283a53740dd94de6 size:1996800 https://d.7-zip.org/a/7z2501-x64.msi sha256:e7eb0b7ed5efa4e087b7b17f191797f7af5b7f442d1290c66f3a21777005ef57
 
-wait __Download\npp.8.8.5.Installer.exe /S
 
-action may require restart "eaf46c1cff17458b28bfd2fef41045de0bdbf4c3"
-</ActionScript>
+// Install:
+waithidden msiexec.exe /i __Download\7zip-x64.msi /qn /norestart
+// End</ActionScript>
 					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
-					<Relevance><![CDATA[(((((if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )) AND (name of operating system as lowercase starts with "win")) AND (exists regapp "notepad++.exe")) AND (not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry)) AND (raw version of regapp "notepad++.exe" < "8.8.5")]]></Relevance>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "7-Zip" and value "UninstallString" of it as string as lowercase contains "msiexec") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "25.01") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "7-Zip" and value "UninstallString" of it as string as lowercase contains "msiexec") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
 					<Delay>PT1S</Delay>
 				</BaselineComponent>
-				<BaselineComponent Name="Notepad++ (x64) 8.8.5 Available" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateswindowsapps" SourceID="4001324" SyncStatus="synchronized" ActionName="Action1">
-					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch npp.8.8.5.Installer.exe sha1:7568161b568d9915f084f9eff1e9486b362b2596 size:6879312 https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.8.5/npp.8.8.5.Installer.x64.exe sha256:c6d1e5aacbf69aa18df4caf1346fd69638491a5ad0085729bae91c662d1c62bb
+				<BaselineComponent Name="Update: 7-Zip (EXE) v25.01 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="200201" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch 7zip-x64.exe sha1:eaedd181996b4fe1ae15b6ae40c37adb6729489e size:1643509 https://d.7-zip.org/a/7z2501-x64.exe sha256:78afa2a1c773caf3cf7edf62f857d2a8a5da55fb0fff5da416074c0d28b2b55f
 
-wait __Download\npp.8.8.5.Installer.exe /S
 
-action may require restart "7568161b568d9915f084f9eff1e9486b362b2596"
-</ActionScript>
+// Install:
+waithidden __Download\7zip-x64.exe /S
+// End</ActionScript>
 					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
-					<Relevance><![CDATA[(((((((if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )) AND (name of operating system as lowercase starts with "win")) AND (exists regapp "notepad++.exe")) AND (not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry)) AND (exists key "HKLM\SOFTWARE\Notepad++" of x64 registry)) AND (product version of regapp "notepad++.exe" < "8.8.5")) AND (x64 of operating system)]]></Relevance>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "7-Zip" and value "UninstallString" of it as string as lowercase does not contain "msiexec") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "25.01") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "7-Zip" and value "UninstallString" of it as string as lowercase does not contain "msiexec") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
 					<Delay>PT1S</Delay>
 				</BaselineComponent>
-				<BaselineComponent Name="Mozilla Firefox (x64) 142.0 Available" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateswindowsapps" SourceID="6082210" SyncStatus="source fixlet differs" ActionName="Action1">
-					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[begin prefetch block
-
-if {(exist architecture whose (it is "x86_64") of operating system)}
-
-if {exists key whose (name of it as string contains "en-US") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=ad86becc5e0f25aa1ea238770193f775d5e6a118 size=82367232 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/en-US/Firefox%2520Setup%2520142.0.exe sha256=58da8c1701d81cdf38e0fb81e0755ea0a4725e752fbe2598bc50f57371f2fda9"}
-
-elseif {exists key whose (name of it as string contains "fr") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=a2757f38fe8475bc85c46fa305f9bff3848ab093 size=82667280 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/fr/Firefox%2520Setup%2520142.0.exe sha256=d8d526fa9b39a22ae934036da03f578baee7f32fe8c2fca0beaae2977b774324"}
-
-elseif {exists key whose (name of it as string contains "de") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=c9994776aedee84cd3e5f95927797f3875837b77 size=82371632 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/de/Firefox%2520Setup%2520142.0.exe sha256=7c1975f1b87d5cc645c8587261afecd8988768492f56f8a766ebcaf994e1e5ec"}
-
-elseif {exists key whose (name of it as string contains "it") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=a7c38ee5a90309a3780b7300f77e28d04fe4d36c size=82279056 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/it/Firefox%2520Setup%2520142.0.exe sha256=7fdfb88bf091cd154f41d34a6f2ffc2d7f4711d29dcd4e17c0751956b100b76f"}
-
-elseif {exists key whose (name of it as string contains "es-ES") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=3633fb1e1c7735834ae4a2f0ecee04e7d34c87cc size=82476832 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/es-ES/Firefox%2520Setup%2520142.0.exe sha256=d3b078456712f7860c0d173fbdf053038a3234b7fd6ba15b456fcf7a5ebf3050"}
-
-elseif {exists key whose (name of it as string contains "zh-CN") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=440aad9dd7e3dea59cdcdc351402a27013648992 size=82308112 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/zh-CN/Firefox%2520Setup%2520142.0.exe sha256=9e34d6e88bca0d10f86fe0776c15e6221a776d3a8e5db69ff0e0524f8dde9d33"}
-
-elseif {exists key whose (name of it as string contains "ja") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=4b9e64f908b6dd50e0616cb9fb1fd1561850c4c3 size=82474800 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/ja/Firefox%2520Setup%2520142.0.exe sha256=2e9d5867a6ea7104e0267ba46bdc952e5b6187752c017565b44687201ad2aa48"}
-
-
-elseif {exists key whose (name of it as string contains "zh-TW") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=9f467ca9e50b38c4b90f07cb2470c4c4603b4e20 size=82471112 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/zh-TW/Firefox%2520Setup%2520142.0.exe sha256=49ae45857f419979b19935fddf3da5fe7db8b5c53d1d5e9cb465beba085ccec7"}
-
-
-elseif {exists key whose (name of it as string contains "ko") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=0f47a0c8c583d0413ac7449fa562585b159d12a8 size=82311912 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/ko/Firefox%2520Setup%2520142.0.exe sha256=663460c5628dbdf490eafd9c1a9336aca8800512db2c349f3705eee93209383e"}
-
-elseif {exists key whose (name of it as string contains "pt-BR") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=7a7a7a77e350d9acec702efc026e1e2c52173280 size=82447304 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/pt-BR/Firefox%2520Setup%2520142.0.exe sha256=aef0ebd4092b7c1c535d5fd372154454d6b38de9591e322bdd530122d55feaa3"}
-
-elseif {exists key whose (name of it as string contains "ru") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=3d8dcc4be1c5025a77976302bb4b0ea00451779b size=82731800 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/ru/Firefox%2520Setup%2520142.0.exe sha256=7a09e8258f8cf51b80e56bd31ccf42887e5ed5a588e87304f123815f016ed651"}
-
-elseif {exists key whose (name of it as string contains "pl") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=67c46568c42052541c85a2b480b9ad3b5f297994 size=83365056 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/pl/Firefox%2520Setup%2520142.0.exe sha256=78a21a06fecb0a21070c76eac6053eb75417c727ee0cb291ec8f72fd4257b0bc"}
-
-elseif {exists key whose (name of it as string contains "hu") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=c43c1e2605bc6a70ced349582762bfa87879ab9c size=82921088 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/hu/Firefox%2520Setup%2520142.0.exe sha256=0ba1a6066b386a4e9d27a6b09aec9a2cec03b615e4d7cfbf3112d91d7f316212"}
-
-elseif {exists key whose (name of it as string contains "cs") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=dff62a45856b8a0d2e5875934f3dc4df2f7c62fa size=82301032 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/cs/Firefox%2520Setup%2520142.0.exe sha256=62dac89d4983092dae71ccb479605133b5a4fb7625ac770d186ed963b4087209"}
-
-elseif {exists key whose (name of it as string contains "en-GB") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=fdf24cde7fa77cb7b413e1c4c414de5af094a6a9 size=82283024 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/en-GB/Firefox%2520Setup%2520142.0.exe sha256=655a99455ded26f3cf83a773944f4d39b8b301104a8623a74d58d2f5d696540b"}
-
-elseif {exists key whose (name of it as string contains "nl") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=d8ab0329cacce1543ed6a94f342027d79aaecc92 size=82981880 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/nl/Firefox%2520Setup%2520142.0.exe sha256=f732b7379eb5aeee7b1428f0d38058550542804904d774fe46d0303eb05c1835"}
-
-
-elseif {exists key whose (name of it as string contains "en-CA") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=277a87b57975fa0c2dacc6faa928c26e10f5539f size=82452088 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/en-CA/Firefox%2520Setup%2520142.0.exe sha256=047eb166df544d3830b9f31a07ef6db71e2110da3cda1e3f771ce784ac27db00"}
-
-
-elseif {exists key whose (name of it as string contains "es-MX") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=a9ed4a8ae8f4ef1816a41107ac0791e4e2c00747 size=82531200 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/es-MX/Firefox%2520Setup%2520142.0.exe sha256=81ceff9d9e23828dd358b028165809867037c10d4b30274dbe29f43e59bbde26"}
-
-
-endif
-
-elseif  {(exist architecture whose (it is "ARM64") of operating system)}
-
-if {exists key whose (name of it as string contains "en-US") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=91cca21e4fa56491cdf57479ba4f98f18944abfb size=75380568 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/en-US/Firefox%2520Setup%2520142.0.exe sha256=d4e5f26a5c6d5789aed8a126914b00fe16b9a03b633ba4d90d19fb21234ef486"}
-
-elseif {exists key whose (name of it as string contains "fr") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=5398041873836e827f0a55370c637894ce114c64 size=75731976 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/fr/Firefox%2520Setup%2520142.0.exe sha256=30346072cdf70307565b64af4d0a1c22561d173534723bfb6888936aed6975f5"}
-
-elseif {exists key whose (name of it as string contains "de") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=e22881a0ce56fdbb6440ed8786276a7e73384649 size=75378208 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/de/Firefox%2520Setup%2520142.0.exe sha256=dbb7561407d63edc336433c0c7859ce91f2deb12442b26c7e879839141b0ebfb"}
-
-elseif {exists key whose (name of it as string contains "it") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=4338f553dcf39990d318e191a80a0daba31bf490 size=75358840 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/it/Firefox%2520Setup%2520142.0.exe sha256=d0dc716e6d512603de7d3354bdcb1f95b845e37d9e9f7842ef55dba4569d8e96"}
-
-elseif {exists key whose (name of it as string contains "es-ES") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=94566e16e8826221eae530f0f1d97794ea514862 size=75568776 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/es-ES/Firefox%2520Setup%2520142.0.exe sha256=24fab7ef676ec8d4e7f170951f5ce899410df5afe35d0cf0bb27ecdae5f4e00d"}
-
-elseif {exists key whose (name of it as string contains "zh-CN") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=69cf515386b33abc890bcc9739f70a50a0c94579 size=75367312 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/zh-CN/Firefox%2520Setup%2520142.0.exe sha256=08b07b31f9a2a17445f51a54b5488d33b5faad922ef2159c7fe506e49d94b380"}
-
-elseif {exists key whose (name of it as string contains "ja") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=4d95e69d53478098e2d64f54559a5afb2394f683 size=75539736 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/ja/Firefox%2520Setup%2520142.0.exe sha256=17e8c6e0554810a6e6aa20496fc330cdec537d2febd5a0ec62451f881a19f1b4"}
-
-
-elseif {exists key whose (name of it as string contains "zh-TW") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=82fb8bb32492072c874dba59cec0b625ef897667 size=75538872 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/zh-TW/Firefox%2520Setup%2520142.0.exe sha256=296c821eed4e0da7a30337f375ab42883d6347a5a5c52c6b344d458c07c405dc"}
-
-
-elseif {exists key whose (name of it as string contains "ko") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=31cf14db0bc992a98bb536a3a716140fb25293f1 size=75362384 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/ko/Firefox%2520Setup%2520142.0.exe sha256=5bb52b31c59047c8da1b260a2c28c07f42f58025280113fc32f9e24b40597ef0"}
-
-elseif {exists key whose (name of it as string contains "pt-BR") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=e91a61df2e93243961249608f6816831b784f20b size=75534152 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/pt-BR/Firefox%2520Setup%2520142.0.exe sha256=119f557e38e0dbbe1eb17f6005533fb448787d2f434842927e9af414a2781a84"}
-
-elseif {exists key whose (name of it as string contains "ru") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=f6f84f6d9f52bfa7436b3fa73516bf35610805f7 size=75824112 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/ru/Firefox%2520Setup%2520142.0.exe sha256=74987fb0ccda873b07a3618f5f886bf0aef9602258499a6c4f4ff140dfdb783f"}
-
-elseif {exists key whose (name of it as string contains "pl") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=5e73257b151ba64bf97a1568a0d7ab0300af48f8 size=76439832 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/pl/Firefox%2520Setup%2520142.0.exe sha256=c745505b3516a6c8c537af94126ff477e9ae7448e2c63b98b63b5ccfaaf84a69"}
-
-elseif {exists key whose (name of it as string contains "hu") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=007fbf1b8d68d633cc8504d92fd9ab0e52896c03 size=76004632 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/hu/Firefox%2520Setup%2520142.0.exe sha256=5fb1fb2b99f0ce57e94068b7a6ce25b359bc839aa01bb317dc46ba7a686bdefa"}
-
-elseif {exists key whose (name of it as string contains "cs") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=e7e8f7fdf48b40f3900eec4bde1e3e4e7fe305b8 size=75385336 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/cs/Firefox%2520Setup%2520142.0.exe sha256=0fc3754b8e9db9c07cb1a36b134707afa1d40168a46e43b6fd1b2da941ebe32a"}
-
-elseif {exists key whose (name of it as string contains "en-GB") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=3f6f3b8e877a35e77d7544f192a189239344783c size=75279480 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/en-GB/Firefox%2520Setup%2520142.0.exe sha256=70f37ca1c8f721281d555cbb925cdcee9df2adb2f22a31467b19ad73148df03d"}
-
-elseif {exists key whose (name of it as string contains "nl") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=f40e6bdc03c54edcee5dfe22511e914eae61debc size=76048688 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/nl/Firefox%2520Setup%2520142.0.exe sha256=edbb6d3ea54e8cad095db141510205dde130bef4f1e76add18e155399a6922ec"}
-
-
-elseif {exists key whose (name of it as string contains "en-CA") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=98b86aa6cbfbb28b3ae4bf06a46f93cea7aca25f size=75444888 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/en-CA/Firefox%2520Setup%2520142.0.exe sha256=d1284504a9c0ed35330fb64cf4391b9a8071729a0977a7f186ebe1aa376139e9"}
-
-
-elseif {exists key whose (name of it as string contains "es-MX") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
-
-	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=8ba542c965a7da79f0964ad4961ff87671439fbe size=75561896 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/es-MX/Firefox%2520Setup%2520142.0.exe sha256=e79722caba89647ab66698d0ceb640b8b20872e55d32969401fdf4daca6baa4a"}
-
-endif
-endif
-
-collect prefetch items
-end prefetch block
-
-regset "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\FilesToDelete]" "MozillaFirefoxDesktopIcon"="{if (exists file ((value "Common Desktop" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" of registry as string)&"\Mozilla Firefox.lnk")) then "" else escape of (value "Common Desktop" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" of registry as string & "\Mozilla Firefox.lnk")}"
-
-wait __Download\Firefox_Setup_142.0.exe -ms -ira -hideBanner -cleanUpOnUpgrade
-
-delete {value "MozillaFirefoxDesktopIcon" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\FilesToDelete" of registry as string}
-
-regdelete "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\FilesToDelete]" "MozillaFirefoxDesktopIcon"
-]]></ActionScript>
+				<BaselineComponent Name="Update: CPUID CPU-Z v2.16 - Windows" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="2300101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+
+action uses wow64 redirection {not x64 of operating system}
+
+// Download:
+prefetch cpu-z_en.exe sha1:7c9b96bb03b8105ece053a157736843857460f4d size:4677688 https://download.cpuid.com/cpu-z/cpu-z_2.16-en.exe sha256:9d2e3b817f89caadd7d373a0032cf2443844bbe22eebdcca0a758d2a91924871
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait __Download\cpu-z_en.exe /SP- /SILENT /VERYSILENT /SUPRESSMSGBOXES /NORESTART /MERGETASKS=!desktopicon
+// End</ActionScript>
 					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
-					<Relevance><![CDATA[(((((((((if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )) AND (name of operating system as lowercase starts with "win")) AND (exists key whose (name of it as lowercase starts with "mozilla" AND exists key whose (name of it = "Mozilla Firefox") of it) of key "HKLM\SOFTWARE\" of x64 registry)) AND (not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry)) AND (exists name whose (it as string contains "en-US" OR it as string contains "fr" OR it as string contains "de" OR it as string contains "it" OR it as string contains "es-ES" OR it as string contains "zh-CN" OR it as string contains "ja" OR it as string contains "zh-TW" OR it as string contains "ko" OR it as string contains "pt-BR" OR it as string contains "ru" OR it as string contains "pl" OR it as string contains "hu" OR it as string contains "cs" OR it as string contains "en-GB" OR it as string contains "nl" OR it as string contains "en-CA" OR it as string contains "es-MX") of keys of keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of x64 registry)) AND (x64 of operating system)) AND ((exists regapp "firefox.exe" whose (product version of it < "142.0")) OR ((exists value "CurrentVersion" whose ((preceding text of first " " of (it as string)) as version < "142.0") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of x64 registry) AND (NOT exists value "CurrentVersion" whose ((preceding text of first " " of (it as string)) as version >= "142.0") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of x64 registry)))) AND (NOT (name of it as uppercase contains "ESR") of key of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of x64 registry)) AND (exists version whose(it >= "10") of operating system)]]></Relevance>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "CPUID CPU-Z") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "2.16") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "CPUID CPU-Z") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
 					<Delay>PT1S</Delay>
 				</BaselineComponent>
-				<BaselineComponent Name="Google Chrome 139.0.7258.155 Available" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateswindowsapps" SourceID="14011706" SyncStatus="source fixlet differs" ActionName="Action1">
-					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[// Check 64bit Chrome & x86_64 architecture
-if {(x64 of operating system) AND (exist architecture whose (it is "x86_64") of operating system)}
+				<BaselineComponent Name="Update: DB Browser for SQLite v3.13.1 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="2500101" SyncStatus="source fixlet differs" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch DB.Browser.for.SQLite-win64.msi sha1:772c3f050ef1dbcfdedbaa87c6bd2eb8df273b6d size:19857408 https://download.sqlitebrowser.org/DB.Browser.for.SQLite-v3.13.1-win64.msi sha256:d023d54b3a5db10c7e896089bb3dbe6e7f4bc4eaa9bbecb34ca414be5970f688
 
-prefetch googlechromestandaloneenterprise64.msi sha1:a15bdbdbcb9218e94126984aaa3d4b72f7f99deb size:136318976 https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B03FE9563-80F9-119F-DA3D-72FBBB94BC26%7D%26lang%3Den%26browser%3D4%26usagestats%3D0%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable%26brand=GCEA/dl/chrome/install/googlechromestandaloneenterprise64.msi sha256:d1a5269a18759fb98df6050abbfe518281527087c91539bb79d4dc4c453899d1
+// Install:
+override wait
+hidden=true
+completion=job
+wait msiexec.exe /i __Download\DB.Browser.for.SQLite-win64.msi SHORTCUT_SQLITE_PROGRAMMENU=1 /qn /norestart
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "DB Browser for SQLite") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "3.13.1") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "DB Browser for SQLite") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Remote Desktop Manager Enterprise v2025.2.27.0 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="2700101" SyncStatus="source fixlet differs" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch Setup.RemoteDesktopManager.msi sha1:216caa2ca351e6bfa63b9162d20875108629f512 size:421857280 https://cdn.devolutions.net/download/Setup.RemoteDesktopManager.2025.2.27.0.msi sha256:b792dfe018e1e176c9e558f7371256cef7524af4969e9fe897ff34ae2c8f1cd9
 
-wait msiexec.exe /q /I "__Download\googlechromestandaloneenterprise64.msi"
+// Install:
+override wait
+hidden=true
+completion=job
+wait msiexec.exe /i __Download\Setup.RemoteDesktopManager.msi /qn /norestart
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[(((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose ((not( it as string contains "Free")and (it as string starts with "Remote Desktop Manager"))  of value "DisplayName" of it) of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "2025.2.27.0") of values "DisplayVersion" of keys whose ((not( it as string contains "Free")and (it as string starts with "Remote Desktop Manager"))  of value "DisplayName" of it) of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists keys whose (value "DisplayName" of it as string = "Remote Desktop Manager Free")  of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Docker Desktop v4.45.0 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="2800101" SyncStatus="source fixlet differs" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch DockerDesktopInstaller.exe sha1:083e55e784e67c1d2a85917ef8fa48bbbe0889c2 size:584920496 https://desktop.docker.com/win/main/amd64/Docker%20Desktop%20Installer.exe sha256:a94aca8f56ea77d72ae25e0e95b818149369ca74102f462ec5052eab2c9337d1
 
-action may require restart "a15bdbdbcb9218e94126984aaa3d4b72f7f99deb"
+// Install:
+override wait
+hidden=true
+completion=job
+wait __Download\DockerDesktopInstaller.exe install --quiet
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "Docker Desktop") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "4.45.0") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "Docker Desktop") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Git v2.51.0 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="3400101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch Git-64-bit.exe sha1:ad225b52df9b999d50e50b15cafe115c75e018ba size:64701312 https://github.com/git-for-windows/git/releases/download/v2.51.0.windows.1/Git-2.51.0-64-bit.exe sha256:843037416371600a7f289be8fe2b2224afe1c1bb0736bbab7b3ff393e6a7aaf2
 
-// Check 64bit Chrome & ARM64 architecture
-elseif {(x64 of operating system) AND (exist architecture whose (it is "ARM64") of operating system)}
+// Install:
+override wait
+hidden=true
+completion=job
+wait __Download\Git-64-bit.exe /VERYSILENT /NORESTART /NOCANCEL /SP- /CLOSEAPPLICATIONS /RESTARTAPPLICATIONS /NOICONS
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "Git") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "2.51.0") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "Git") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: PowerToys v0.93.0 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="5601801" SyncStatus="source fixlet differs" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch PowerToysSetup-x64.exe sha1:0ce66138fb9a05a3addaad3fa63fea26a978dd48 size:358818400 https://github.com/microsoft/PowerToys/releases/download/v0.93.0/PowerToysSetup-0.93.0-x64.exe sha256:87ad002128903949ef4b2e377865c3880cf2435e196dea5520698af9860d6201
 
-prefetch GoogleChromeStandaloneEnterprise_Arm64.msi sha1:4e12c93bb5045738cc9d16e526ef63756668fdde size:141262848 https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7BD6F861EE-6AC1-CC69-362F-CE89840C1E6D%7D%26lang%3Den%26browser%3D3%26usagestats%3D0%26appname%3DGoogle%2520Chrome%26needsadmin%3Dtrue%26ap%3Darm64-stable-statsdef_0%26brand%3DGCOT/dl/chrome/install/GoogleChromeStandaloneEnterprise_Arm64.msi sha256:92b1d82b57c299c4fccb1d0985f2c5e6dd5e346965da9067e23a5e0686e22815
+// Install:
+override wait
+hidden=true
+completion=job
+wait __Download\PowerToysSetup-x64.exe /quiet /norestart
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[(((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "PowerToys") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "0.93.0") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "PowerToys") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (version of operating system >= "10.0.18362" as version)]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Microsoft Visual C++ 2015-2022 Redistributable (x64) v14.44.35211.0 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="5602201" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch vc_redist.x64.exe sha1:21ce0ee54bff57f69fafa741025bf2f15b356405 size:25635768 https://download.visualstudio.microsoft.com/download/pr/7ebf5fdb-36dc-4145-b0a0-90d3d5990a61/CC0FF0EB1DC3F5188AE6300FAEF32BF5BEEBA4BDD6E8E445A9184072096B713B/VC_redist.x64.exe sha256:cc0ff0eb1dc3f5188ae6300faef32bf5beeba4bdd6e8e445a9184072096b713b
 
-wait msiexec.exe /q /I "__Download\GoogleChromeStandaloneEnterprise_Arm64.msi"
+// Install:
+override wait
+hidden=true
+completion=job
+wait __Download\vc_redist.x64.exe /install /quiet /norestart
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose (value "DisplayName" of it as string starts with "Microsoft Visual C++ 2015" AND value "DisplayName" of it as string contains "Redistributable (x64)") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "14.44.35211.0") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "Microsoft Visual C++ 2015" AND value "DisplayName" of it as string contains "Redistributable (x64)") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Microsoft Visual C++ 2015-2022 Redistributable (x86) v14.44.35211.0 - Windows" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="5602301" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch vc_redist.x86.exe sha1:c2743ffc36d2af40ade0e370be52d6b202874114 size:13953392 https://download.visualstudio.microsoft.com/download/pr/7ebf5fdb-36dc-4145-b0a0-90d3d5990a61/0C09F2611660441084CE0DF425C51C11E147E6447963C3690F97E0B25C55ED64/VC_redist.x86.exe sha256:0c09f2611660441084ce0df425c51c11e147e6447963c3690f97e0b25c55ed64
 
-action may require restart "4e12c93bb5045738cc9d16e526ef63756668fdde"
+// Install:
+override wait
+hidden=true
+completion=job
+wait __Download\vc_redist.x86.exe /install /quiet /norestart
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[(((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (exists keys whose (value "DisplayName" of it as string starts with "Microsoft Visual C++ 2015" AND value "DisplayName" of it as string contains "Redistributable (x86)") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "14.44.35211.0") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "Microsoft Visual C++ 2015" AND value "DisplayName" of it as string contains "Redistributable (x86)") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Microsoft Visual Studio Code x64 v1.103.1 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="5602501" SyncStatus="source fixlet differs" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch VSCodeSetup-x64.exe sha1:67596d570fbd8798a1e3f0fa689112b1c031c2b0 size:114865592 https://vscode.download.prss.microsoft.com/dbazure/download/stable/360a4e4fd251bfce169a4ddf857c7d25d1ad40da/VSCodeSetup-x64-1.103.1.exe sha256:952d6e6b7c4fe2f315a32b00f674e659c30fa13af1539691e9d16e93cd45aed0
 
-// Otherwise should be 32bit
+// Install:
+if {exists process "Code.exe"}
+	exit 1
 else
-prefetch googlechromestandaloneenterprise.msi sha1:bf658d0383a3b8f149cab32264883777d40fd9f4 size:123424768 https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B03FE9563-80F9-119F-DA3D-72FBBB94BC26%7D%26lang%3Den%26browser%3D4%26usagestats%3D0%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable%26brand=GCEA/dl/chrome/install/googlechromestandaloneenterprise.msi sha256:b4d93cc2a17564ff414f14d0f9583408f5ab67c4cf581c809f74814831f1ac86
-
-wait msiexec.exe /q /I "__Download\googlechromestandaloneenterprise.msi"
-
-action may require restart "bf658d0383a3b8f149cab32264883777d40fd9f4"
+	override wait
+	hidden=true
+	completion=job
+	wait __Download\VSCodeSetup-x64.exe /verysilent /suppressmsgboxes /mergetasks="!runcode,!desktopicon,addcontextmenufiles,addcontextmenufolders,associatewithfiles"
 endif
-]]></ActionScript>
+// End</ActionScript>
 					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
-					<Relevance><![CDATA[(((((((if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )) AND (name of operating system as lowercase starts with "win")) AND (not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry)) AND (exists regapp "chrome.exe")) AND (version of client >= "7")) AND ((exists key whose ((value "name" of it as string = "Google %c5%a9%b7%d2" or value "name" of it as string = "Chrome" or value "name" of it as string = "Google Chrome") and value "pv" of it as string as version < "139.0.7258.155") of keys "HKEY_LOCAL_MACHINE\Software\Google\Update\Clients" of registry) OR (exists key whose (( value "DisplayName" of it as string = "Chrome" or value "DisplayName" of it as string = "Google Chrome") and value "DisplayVersion" of it as string as version < "139.0.7258.155") of keys "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry))) AND (exists build number whose (it >= 10240) of operating system)]]></Relevance>
+					<Relevance><![CDATA[(((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (version of operating system > "6.3")) AND (exists keys whose(value "DisplayName" of it as string starts with "Microsoft Visual Studio Code") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x64 registries))) AND (not exists (it as string as version) whose(it >= "1.103.1") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "Microsoft Visual Studio Code") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Windows Defender Virus Definitions v1.435.496.0 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="5603601" SyncStatus="source fixlet differs" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+// Download:
+prefetch mpam-fe-x64.exe sha1:f0f0bca00c8f6e622d4eeb0eae78a9a170689612 size:210618792 https://definitionupdates.microsoft.com/packages/content/mpam-fe.exe?packageType=Signatures&packageVersion=1.435.496.0&arch=amd64&engineVersion=1.1.25070.4 sha256:0c41e52a46e41f2201bf0cfe094dbb784df21ad060bebf6ec6f1ff3385b20436
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait __Download\mpam-fe-x64.exe -q
+// End]]></ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[((((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (not exists (it as string) whose(it as uppercase contains "ARM") of values "PROCESSOR_ARCHITECTURE" of keys "HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registries)) AND (exists versions whose(it > "6.3.9200") of operating systems)) AND (( not exists (it as string as integer) whose(it = 1) of values "DisableAntiSpyware" of (keys "Microsoft Antimalware" of it ; keys "Windows Defender" of it) of (keys "HKLM\SOFTWARE\Microsoft" of it; keys "HKLM\SOFTWARE\Policies\Microsoft" of it) of native registry ) AND ( exists string values whose(it as trimmed string != "") of selects "AMRunningMode FROM MSFT_MpComputerStatus" of wmis "ROOT\Microsoft\Windows\Defender" ))) AND (exists maxima whose(it < "1.435.496.0") of unique values of (it as string as version) of values whose(name of it = "ASSignatureVersion" OR name of it = "AVSignatureVersion") of keys "Signature Updates" of (keys "Microsoft Antimalware" of it ; keys "Windows Defender" of it) of keys "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft" of native registry)]]></Relevance>
+					<Delay>PT6H</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Microsoft Visual Studio Code x32 v1.83.1 - Windows" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="5603701" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch VSCodeSetup.exe sha1:0c7b6d927d9844d7331a6f8f5daabb46fcd51777 size:91074856 https://az764295.vo.msecnd.net/stable/f1b07bd25dfad64b0167beb15359ae573aecd2cc/VSCodeSetup-ia32-1.83.1.exe sha256:6b5830991395299b59d1d8f4ecb3a9d752ef64b9b39c5dd4be848851c87f3126
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait __Download\VSCodeSetup.exe /verysilent /suppressmsgboxes /CLOSEAPPLICATIONS /mergetasks="!runcode,!desktopicon,addcontextmenufiles,addcontextmenufolders,associatewithfiles"
+
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[(((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "Microsoft Visual Studio Code") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries))) AND (not exists (it as string as version) whose(it >= "1.83.1") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "Microsoft Visual Studio Code") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: NAPS2 v8.2.1 - Windows" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="6000101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch naps2-setup.msi sha1:9e674886c79cd37b96fa64afa063da686fa611df size:53669888 https://github.com/cyanfish/naps2/releases/download/v8.2.1/naps2-8.2.1-win-x64.msi sha256:84fdf4747f7c0dd0bdfd081073684c6dc1924ec08283939b3ffa7893c2131aec
+
+// if NAPS2 was previously installed with EXE, remove it before installing with MSI
+if { exists files "unins000.exe" of folders "NAPS2" of (program files folders; native program files folders) }
+
+override wait
+hidden=true
+completion=job
+timeout_seconds=3600
+wait "{unique value of pathnames of files "unins000.exe" of folders "NAPS2" of (program files folders; native program files folders)}" /SILENT /VERYSILENT /NORESTART
+
+endif
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait msiexec.exe /i __Download\naps2-setup.msi /qn /norestart
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[(((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "NAPS2") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists it whose(it >= "8.2.1") of (value "DisplayVersion" of it as string as version | value "DisplayName" of it as string as version ) of keys whose(value "DisplayName" of it as string starts with "NAPS2") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Node.js LTS v22.18.0 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="6500101" SyncStatus="source fixlet differs" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch node-x64.msi sha1:032e3fba6498eb1a4b9d1fd9b86c5de7e4e5e0b7 size:31354880 https://nodejs.org/dist/v22.18.0/node-v22.18.0-x64.msi sha256:dffd8e34d8eb1a1a2e6f5e6f129c4b1b8a34aa54e02799007adc99d73efac75c
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait msiexec.exe /i __Download\node-x64.msi /norestart /quiet ADDLOCAL=ALL
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "Node.js") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "22.18.0") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "Node.js") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Node.js v24.6.0 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="6500201" SyncStatus="source fixlet differs" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch nodeJs-x64.msi sha1:563da7418bf2774781867b977bdb6f940ef338c0 size:32194560 https://nodejs.org/dist/latest-v24.x/node-v24.6.0-x64.msi sha256:d3a3f84c6f65d05dceaa332281ba8f4651469d63d49aaed56184e0c415b98e0b
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait msiexec.exe /i __Download\nodeJs-x64.msi /norestart /quiet ADDLOCAL=ALL
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[(((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "Node.js") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "24.6.0") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "Node.js") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (exists keys whose( exists value "DisplayName" whose (it as string contains "Node.js") of it AND exists value "DisplayVersion" whose ((it as string as version < "24.6.0") AND (it as string as version < "22.0.0" OR it as string as version >= "23.0.0")) of it) of keys "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Paint.NET v5.1.9 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="7200101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch paint.net.winmsi.x64.zip sha1:838f77a156ccbbd08cd3cb59d7f52085e418bedb size:100215054 https://github.com/paintdotnet/release/releases/download/v5.1.9/paint.net.5.1.9.winmsi.x64.zip sha256:433b5fc4305e02c58c3af2eb1d25c8e501c02bb315a82fcc5fea23111aa88f72
+prefetch unzip.exe sha1:84debf12767785cd9b43811022407de7413beb6f size:204800 https://software.bigfix.com/download/redist/unzip-6.0.exe sha256:2122557d350fd1c59fb0ef32125330bde673e9331eb9371b454c2ad2d82091ac
+// Extract:
+delete paint.net.5.1.9.winmsi.x64.msi
+waithidden __Download\unzip.exe __Download\paint.net.winmsi.x64.zip
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait msiexec.exe /i paint.net.5.1.9.winmsi.x64.msi DESKTOPSHORTCUT=0 CHECKFORUPDATES=0 /qn /norestart
+
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "Paint.NET") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "5.1.9") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "Paint.NET") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Python v3.13.7 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="8000101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch python-amd64.exe sha1:8c5720c32f92b5b626b4467dba22da523a30ace6 size:28808040 https://www.python.org/ftp/python/3.13.7/python-3.13.7-amd64.exe sha256:b12e2e82461ac8e51fc43289050bc8eb937a32d84ce4d242e2c88258c37cf2bb
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait __Download\python-amd64.exe /quiet InstallAllUsers=1 PrependPath=1 Include_test=0
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "Python") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "3.13.7") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "Python") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Sublime Text v4200 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="9200101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch sublime_text_x64_setup.exe sha1:da22d4d6087aecc03e5618dca9da2137bc8ac1e4 size:16200128 https://download.sublimetext.com/sublime_text_build_4200_x64_setup.exe sha256:3d3c70e51aef08f85d7160bcc70793bed9acec250973090ab67d98987bce7c7e
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait __Download\sublime_text_x64_setup.exe /VERYSILENT /NORESTART /TASKS=contextentry
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "Sublime Text") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists values "ProductVersion" whose(it as version >= "4200") of version blocks of files "sublime_text.exe" of native folders ( (it as string) of values "InstallLocation" of keys whose(value "DisplayName" of it as string starts with "Sublime Text") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries) ))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Sublime Merge v2112 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="9200201" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch SublimeMerge-Setup-x64.exe sha1:e4ceee383d385586e1e4564f86b209b5ca4657da size:34552496 https://download.sublimetext.com/sublime_merge_build_2112_x64_setup.exe sha256:d15a56d60248296d48898c8e961c6b6f915215a6d56e1bd21d8b5dc978b8e6de
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait __Download\SublimeMerge-Setup-x64.exe /VERYSILENT /SUPPRESSMSGBOXES /NORESTART /SP-
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "Sublime Merge") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists values "ProductVersion" whose(it as version >= "2112") of version blocks of files "sublime_merge.exe" of native folders ( (it as string) of values "InstallLocation" of keys whose(value "DisplayName" of it as string starts with "Sublime Merge") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries) ))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: VLC v3.0.21 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="10600101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+// Download:
+prefetch vlc-setup-win64.exe sha1:80d994fb95087efce34aeb4a98c8f4d7d2a035a6 size:44943296 https://get.videolan.org/vlc/3.0.21/win64/vlc-3.0.21-win64.exe sha256:9742689a50e96ddc04d80ceff046b28da2beefd617be18166f8c5e715ec60c59
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait __Download\vlc-setup-win64.exe /L=1031 /S /NCRC
+if { exists (now - it) whose(it < 2 * minute) of creation times of files "VLC media player.lnk" of /* C:\Users\Public\Desktop */ csidl folders 25 }
+delete "{pathnames of files "VLC media player.lnk" of /* C:\Users\Public\Desktop */ csidl folders 25}"
+endif
+// End]]></ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "VLC") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "3.0.21") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "VLC") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: WinMerge v2.16.50 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="11000101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch WinMerge-x64-Setup.exe sha1:66524234542fdda4b50397709b3df2e9491a55f6 size:12276816 https://github.com/WinMerge/winmerge/releases/download/v2.16.50/WinMerge-2.16.50-x64-Setup.exe sha256:1ed2819a990011a23838809d587891f52674c507e2ff63b8e97b4430e7484177
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait __Download\WinMerge-x64-Setup.exe /VERYSILENT /SP- /NORESTART
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "WinMerge") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "2.16.50") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "WinMerge") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: WinSCP v6.5.3 - Windows" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="11300101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+continue if {not exists running application ("WinSCP.exe")}
+
+prefetch WinSCP-Setup.exe sha1:d46c9ab2283284545f39c063b59f433aace2e18b size:12236344 https://sourceforge.net/projects/winscp/files/WinSCP/6.5.3/WinSCP-6.5.3-Setup.exe/download sha256:66de37a79900c3eebc8225058cae5e2db3df939308ba6b2d518b39c98e4f41da
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait __Download\WinSCP-Setup.exe /VERYSILENT /ALLUSERS /NORESTART /NOCLOSEAPPLICATIONS /MERGETASKS=!desktopicon
+
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[(((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "WinSCP") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(pad of it >= "6.5.3") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "WinSCP") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: PuTTY 64-bit v0.83.0.0 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="12300101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch putty-64bit-installer.msi sha1:fcc43a90f7d73a1ba2431e2d44911d7c635795ed size:3831808 https://the.earth.li/~sgtatham/putty/0.83/w64/putty-64bit-0.83-installer.msi sha256:aa8e5036d973688f1e8622fbe9ab22e037346e0def0197bf5e7cdf37da4e223d
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait msiexec.exe /i __Download\putty-64bit-installer.msi /qn /norestart
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "PuTTY") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x64 registries))) AND (not exists (it as string as version) whose(it >= "0.83.0.0") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "PuTTY") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Meld v3.22.2 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="19400101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch Meld.msi sha1:75d84944a808e40cb738bc4a69f0fa96c6b6ff44 size:28401664 https://download.gnome.org/binaries/win32/meld/3.22/Meld-3.22.2-mingw.msi sha256:e1525657ff0e0d9762619b4930fa758756d5e766967764bd12c2f3914f16ece8
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait msiexec.exe /i __Download\Meld.msi /qn /norestart
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "Meld") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "3.22.2") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "Meld") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Speccy v1.33.0.75 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="47200101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+// Download:
+prefetch spsetup.exe sha1:938c2d249c9bf7978b4828b9028b95b122ceefc3 size:18824928 https://download.ccleaner.com/spsetup133.exe sha256:03c35fcb1d10cf478c0b9896699937e6e262daa4f4a4353a7cc56b238fe86892
+
+// Install:
+override wait
+hidden=true
+completion=job
+timeout_seconds=3600
+disposition=terminate
+wait __Download\spsetup.exe /S
+
+if { exists (now - it) whose(it < 2 * minute) of creation times of files whose(name of it starts with "Speccy" AND name of it ends with ".lnk") of /* C:\Users\Public\Desktop */ csidl folders 25 }
+delete "{tuple string items 0 of concatenations ", " of pathnames of files whose(name of it starts with "Speccy" AND name of it ends with ".lnk") of /* C:\Users\Public\Desktop */ csidl folders 25}"
+endif
+
+// End]]></ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string contains "Speccy") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "1.33.0.75") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string contains "Speccy") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Moonlight Game Streaming Client v6.1.0.0 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="59600101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+// Download:
+prefetch MoonlightSetup.exe sha1:d6f1c49641c6e56e599fc155161684def7a5aebc size:43277432 https://github.com/moonlight-stream/moonlight-qt/releases/download/v6.1.0/MoonlightSetup-6.1.0.exe sha256:2537651ee187882ecf68f390f395a7e5005923721800e44b58e9776d3b10578a
+
+// Install:
+override wait
+hidden=true
+completion=job
+timeout_seconds=3600
+disposition=terminate
+wait __Download\MoonlightSetup.exe /S /NORESTART /MERGETASKS=!desktopicon
+
+if { exists (now - it) whose(it < 2 * minute) of creation times of files "Moonlight.lnk" of /* C:\Users\Public\Desktop */ csidl folders 25 }
+delete "{pathnames of files "Moonlight.lnk" of /* C:\Users\Public\Desktop */ csidl folders 25}"
+endif
+
+// End]]></ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[((((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (x64 of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "Moonlight Game Streaming Client") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "6.1.0.0") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "Moonlight Game Streaming Client") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Epic Games Launcher (MSI) v1.3.151.0 - Windows" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="59700101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+// Download:
+prefetch EpicGamesLauncher.msi sha1:febfa95e0c35f958035c0ae645783dd06da5a9f3 size:186384384 https://launcher-public-service-prod06.ol.epicgames.com/launcher/api/installer/download/EpicGamesLauncherInstaller.msi sha256:bb3f013a3ad7e2ab1f87e7eef2fc5efc08a9e8fc39e91338a94d5b5c28e1efdf
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait msiexec.exe /i __Download\EpicGamesLauncher.msi /qn /norestart
+
+if { exists (now - it) whose(it < 2 * minute) of creation times of files whose(name of it starts with "Epic Games Launcher" AND name of it ends with ".lnk") of /* C:\Users\Public\Desktop */ csidl folders 25 }
+delete "{tuple string items 0 of concatenations ", " of pathnames of files whose(name of it starts with "Epic Games Launcher" AND name of it ends with ".lnk") of /* C:\Users\Public\Desktop */ csidl folders 25}"
+endif
+
+// End]]></ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[(((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "Epic Games Launcher") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "1.3.151.0") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "Epic Games Launcher") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: MakeMKV v1.18.1 - Windows (x64)" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="59800101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[
+// Download:
+prefetch MakeMKV.exe sha1:f8162a1c7c7aade61fab4e15d16be61ea0e928ba size:15453410 https://www.makemkv.com/download/Setup_MakeMKV_v1.18.1.exe sha256:97a5e8688c5f57f57396750f7139cab35b5349e6138d1b6e00c6a9b1fcdf1517
+
+// Install:
+override wait
+hidden=true
+completion=job
+wait __Download\MakeMKV.exe /S
+if { exists (now - it) whose(it < 2 * minute) of creation times of files whose(name of it starts with "MakeMKV" AND name of it ends with ".lnk") of /* C:\Users\Public\Desktop */ csidl folders 25 }
+delete "{tuple string items 0 of concatenations ", " of pathnames of files whose(name of it starts with "MakeMKV" AND name of it ends with ".lnk") of /* C:\Users\Public\Desktop */ csidl folders 25}"
+endif
+
+// End]]></ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[(((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "MakeMKV") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= ("1.18.1" as version)) of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "MakeMKV") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: Unified Remote v3.13.0 - Windows" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="60200101" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch UnifiedRemote.exe sha1:d3488af90c0c6e073f910d840df7fb91b4d59190 size:35034736 https://www.unifiedremote.com/static/builds/server/windows-x86/2501/ServerSetup-3.13.0.2501.exe sha256:e084d1a666d9bbfdc7bdc2be24e09b9b93edcf6ab14586a3aab74e74bd87a37d
+
+// Install:
+override wait
+hidden=true
+completion=job
+timeout_seconds=3600
+disposition=terminate
+wait __Download\UnifiedRemote.exe /VERYSILENT /MERGETASKS="!launch" /NORESTART
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[(((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "Unified Remote") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "3.13.0") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "Unified Remote") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Update: ZeroTier v1.14.2 - Windows" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateforwinappextend" SourceID="73200101" SyncStatus="source fixlet differs" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">
+// Download:
+prefetch ZeroTierOne.msi sha1:a63c9ea5b4018ad950371d216c8141a0753d0888 size:11052032 https://download.zerotier.com/dist/ZeroTier%20One.msi sha256:45a7c031e4d003512d6c08710e89ba57d9e5a0aeb6af1d26326ad3c0b2a1755d
+
+// Install:
+waithidden msiexec.exe /i __Download\ZeroTierOne.msi /qn /norestart
+// End</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[(((version of client >= "9.2" AND not in proxy agent context AND windows of operating system AND version of operating system >= "5.1") AND (windows of operating system)) AND (exists keys whose(value "DisplayName" of it as string starts with "ZeroTier") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))) AND (not exists (it as string as version) whose(it >= "1.14.2") of values "DisplayVersion" of keys whose(value "DisplayName" of it as string starts with "ZeroTier") of keys "HKLM\Software\Microsoft\Windows\CurrentVersion\Uninstall" of (x32 registries; x64 registries))]]></Relevance>
 					<Delay>PT1S</Delay>
 				</BaselineComponent>
 			</BaselineComponentGroup>
