@@ -3,7 +3,7 @@
 	<Name>baseline_sync_plugin</Name>
 	<Command>"C:\Program Files (x86)\BigFix Enterprise\BES Server\Applications\baseline_sync_plugin\baseline_sync_plugin.exe" -v</Command>
 	<Schedule>
-		<WaitPeriodSeconds>600</WaitPeriodSeconds>
+		<WaitPeriodSeconds>6000</WaitPeriodSeconds>
 	</Schedule>
 	<ForceKill>true</ForceKill>
 </BESPluginRegistration>

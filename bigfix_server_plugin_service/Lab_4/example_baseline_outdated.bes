@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BES xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="BES.xsd">
+	<Baseline>
+		<Title>Remediations from Updates for Windows Applications</Title>
+		<Description></Description>
+		<Relevance><![CDATA[( exists absolute values whose(it < 60 * day) of (current date - "28 Aug 2025" as date) )]]></Relevance>
+		<MIMEField>
+			<Name>x-fixlet-modification-time</Name>
+			<Value>Thu, 28 Aug 2025 20:48:03 +0000</Value>
+		</MIMEField>
+		<Delay>PT12H</Delay>
+		<BaselineComponentCollection>
+			<BaselineComponentGroup>
+				<BaselineComponent Name="Notepad++ 8.8.5 Available" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateswindowsapps" SourceID="4001323" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch npp.8.8.5.Installer.exe sha1:eaf46c1cff17458b28bfd2fef41045de0bdbf4c3 size:6722640 https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.8.5/npp.8.8.5.Installer.exe sha256:05abc57952974d08feafa399d6fdb37945a3fd0a10f37833dd837a5788e421d5
+
+wait __Download\npp.8.8.5.Installer.exe /S
+
+action may require restart "eaf46c1cff17458b28bfd2fef41045de0bdbf4c3"
+</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[(((((if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )) AND (name of operating system as lowercase starts with "win")) AND (exists regapp "notepad++.exe")) AND (not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry)) AND (raw version of regapp "notepad++.exe" < "8.8.5")]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Notepad++ (x64) 8.8.5 Available" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateswindowsapps" SourceID="4001324" SyncStatus="synchronized" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell">prefetch npp.8.8.5.Installer.exe sha1:7568161b568d9915f084f9eff1e9486b362b2596 size:6879312 https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v8.8.5/npp.8.8.5.Installer.x64.exe sha256:c6d1e5aacbf69aa18df4caf1346fd69638491a5ad0085729bae91c662d1c62bb
+
+wait __Download\npp.8.8.5.Installer.exe /S
+
+action may require restart "7568161b568d9915f084f9eff1e9486b362b2596"
+</ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[(((((((if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )) AND (name of operating system as lowercase starts with "win")) AND (exists regapp "notepad++.exe")) AND (not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry)) AND (exists key "HKLM\SOFTWARE\Notepad++" of x64 registry)) AND (product version of regapp "notepad++.exe" < "8.8.5")) AND (x64 of operating system)]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Mozilla Firefox (x64) 142.0 Available" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateswindowsapps" SourceID="6082210" SyncStatus="source fixlet differs" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[begin prefetch block
+
+if {(exist architecture whose (it is "x86_64") of operating system)}
+
+if {exists key whose (name of it as string contains "en-US") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=ad86becc5e0f25aa1ea238770193f775d5e6a118 size=82367232 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/en-US/Firefox%2520Setup%2520142.0.exe sha256=58da8c1701d81cdf38e0fb81e0755ea0a4725e752fbe2598bc50f57371f2fda9"}
+
+elseif {exists key whose (name of it as string contains "fr") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=a2757f38fe8475bc85c46fa305f9bff3848ab093 size=82667280 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/fr/Firefox%2520Setup%2520142.0.exe sha256=d8d526fa9b39a22ae934036da03f578baee7f32fe8c2fca0beaae2977b774324"}
+
+elseif {exists key whose (name of it as string contains "de") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=c9994776aedee84cd3e5f95927797f3875837b77 size=82371632 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/de/Firefox%2520Setup%2520142.0.exe sha256=7c1975f1b87d5cc645c8587261afecd8988768492f56f8a766ebcaf994e1e5ec"}
+
+elseif {exists key whose (name of it as string contains "it") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=a7c38ee5a90309a3780b7300f77e28d04fe4d36c size=82279056 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/it/Firefox%2520Setup%2520142.0.exe sha256=7fdfb88bf091cd154f41d34a6f2ffc2d7f4711d29dcd4e17c0751956b100b76f"}
+
+elseif {exists key whose (name of it as string contains "es-ES") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=3633fb1e1c7735834ae4a2f0ecee04e7d34c87cc size=82476832 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/es-ES/Firefox%2520Setup%2520142.0.exe sha256=d3b078456712f7860c0d173fbdf053038a3234b7fd6ba15b456fcf7a5ebf3050"}
+
+elseif {exists key whose (name of it as string contains "zh-CN") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=440aad9dd7e3dea59cdcdc351402a27013648992 size=82308112 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/zh-CN/Firefox%2520Setup%2520142.0.exe sha256=9e34d6e88bca0d10f86fe0776c15e6221a776d3a8e5db69ff0e0524f8dde9d33"}
+
+elseif {exists key whose (name of it as string contains "ja") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=4b9e64f908b6dd50e0616cb9fb1fd1561850c4c3 size=82474800 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/ja/Firefox%2520Setup%2520142.0.exe sha256=2e9d5867a6ea7104e0267ba46bdc952e5b6187752c017565b44687201ad2aa48"}
+
+
+elseif {exists key whose (name of it as string contains "zh-TW") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=9f467ca9e50b38c4b90f07cb2470c4c4603b4e20 size=82471112 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/zh-TW/Firefox%2520Setup%2520142.0.exe sha256=49ae45857f419979b19935fddf3da5fe7db8b5c53d1d5e9cb465beba085ccec7"}
+
+
+elseif {exists key whose (name of it as string contains "ko") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=0f47a0c8c583d0413ac7449fa562585b159d12a8 size=82311912 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/ko/Firefox%2520Setup%2520142.0.exe sha256=663460c5628dbdf490eafd9c1a9336aca8800512db2c349f3705eee93209383e"}
+
+elseif {exists key whose (name of it as string contains "pt-BR") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=7a7a7a77e350d9acec702efc026e1e2c52173280 size=82447304 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/pt-BR/Firefox%2520Setup%2520142.0.exe sha256=aef0ebd4092b7c1c535d5fd372154454d6b38de9591e322bdd530122d55feaa3"}
+
+elseif {exists key whose (name of it as string contains "ru") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=3d8dcc4be1c5025a77976302bb4b0ea00451779b size=82731800 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/ru/Firefox%2520Setup%2520142.0.exe sha256=7a09e8258f8cf51b80e56bd31ccf42887e5ed5a588e87304f123815f016ed651"}
+
+elseif {exists key whose (name of it as string contains "pl") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=67c46568c42052541c85a2b480b9ad3b5f297994 size=83365056 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/pl/Firefox%2520Setup%2520142.0.exe sha256=78a21a06fecb0a21070c76eac6053eb75417c727ee0cb291ec8f72fd4257b0bc"}
+
+elseif {exists key whose (name of it as string contains "hu") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=c43c1e2605bc6a70ced349582762bfa87879ab9c size=82921088 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/hu/Firefox%2520Setup%2520142.0.exe sha256=0ba1a6066b386a4e9d27a6b09aec9a2cec03b615e4d7cfbf3112d91d7f316212"}
+
+elseif {exists key whose (name of it as string contains "cs") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=dff62a45856b8a0d2e5875934f3dc4df2f7c62fa size=82301032 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/cs/Firefox%2520Setup%2520142.0.exe sha256=62dac89d4983092dae71ccb479605133b5a4fb7625ac770d186ed963b4087209"}
+
+elseif {exists key whose (name of it as string contains "en-GB") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=fdf24cde7fa77cb7b413e1c4c414de5af094a6a9 size=82283024 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/en-GB/Firefox%2520Setup%2520142.0.exe sha256=655a99455ded26f3cf83a773944f4d39b8b301104a8623a74d58d2f5d696540b"}
+
+elseif {exists key whose (name of it as string contains "nl") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=d8ab0329cacce1543ed6a94f342027d79aaecc92 size=82981880 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/nl/Firefox%2520Setup%2520142.0.exe sha256=f732b7379eb5aeee7b1428f0d38058550542804904d774fe46d0303eb05c1835"}
+
+
+elseif {exists key whose (name of it as string contains "en-CA") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=277a87b57975fa0c2dacc6faa928c26e10f5539f size=82452088 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/en-CA/Firefox%2520Setup%2520142.0.exe sha256=047eb166df544d3830b9f31a07ef6db71e2110da3cda1e3f771ce784ac27db00"}
+
+
+elseif {exists key whose (name of it as string contains "es-MX") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=a9ed4a8ae8f4ef1816a41107ac0791e4e2c00747 size=82531200 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64/es-MX/Firefox%2520Setup%2520142.0.exe sha256=81ceff9d9e23828dd358b028165809867037c10d4b30274dbe29f43e59bbde26"}
+
+
+endif
+
+elseif  {(exist architecture whose (it is "ARM64") of operating system)}
+
+if {exists key whose (name of it as string contains "en-US") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=91cca21e4fa56491cdf57479ba4f98f18944abfb size=75380568 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/en-US/Firefox%2520Setup%2520142.0.exe sha256=d4e5f26a5c6d5789aed8a126914b00fe16b9a03b633ba4d90d19fb21234ef486"}
+
+elseif {exists key whose (name of it as string contains "fr") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=5398041873836e827f0a55370c637894ce114c64 size=75731976 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/fr/Firefox%2520Setup%2520142.0.exe sha256=30346072cdf70307565b64af4d0a1c22561d173534723bfb6888936aed6975f5"}
+
+elseif {exists key whose (name of it as string contains "de") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=e22881a0ce56fdbb6440ed8786276a7e73384649 size=75378208 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/de/Firefox%2520Setup%2520142.0.exe sha256=dbb7561407d63edc336433c0c7859ce91f2deb12442b26c7e879839141b0ebfb"}
+
+elseif {exists key whose (name of it as string contains "it") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=4338f553dcf39990d318e191a80a0daba31bf490 size=75358840 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/it/Firefox%2520Setup%2520142.0.exe sha256=d0dc716e6d512603de7d3354bdcb1f95b845e37d9e9f7842ef55dba4569d8e96"}
+
+elseif {exists key whose (name of it as string contains "es-ES") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=94566e16e8826221eae530f0f1d97794ea514862 size=75568776 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/es-ES/Firefox%2520Setup%2520142.0.exe sha256=24fab7ef676ec8d4e7f170951f5ce899410df5afe35d0cf0bb27ecdae5f4e00d"}
+
+elseif {exists key whose (name of it as string contains "zh-CN") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=69cf515386b33abc890bcc9739f70a50a0c94579 size=75367312 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/zh-CN/Firefox%2520Setup%2520142.0.exe sha256=08b07b31f9a2a17445f51a54b5488d33b5faad922ef2159c7fe506e49d94b380"}
+
+elseif {exists key whose (name of it as string contains "ja") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=4d95e69d53478098e2d64f54559a5afb2394f683 size=75539736 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/ja/Firefox%2520Setup%2520142.0.exe sha256=17e8c6e0554810a6e6aa20496fc330cdec537d2febd5a0ec62451f881a19f1b4"}
+
+
+elseif {exists key whose (name of it as string contains "zh-TW") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=82fb8bb32492072c874dba59cec0b625ef897667 size=75538872 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/zh-TW/Firefox%2520Setup%2520142.0.exe sha256=296c821eed4e0da7a30337f375ab42883d6347a5a5c52c6b344d458c07c405dc"}
+
+
+elseif {exists key whose (name of it as string contains "ko") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=31cf14db0bc992a98bb536a3a716140fb25293f1 size=75362384 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/ko/Firefox%2520Setup%2520142.0.exe sha256=5bb52b31c59047c8da1b260a2c28c07f42f58025280113fc32f9e24b40597ef0"}
+
+elseif {exists key whose (name of it as string contains "pt-BR") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=e91a61df2e93243961249608f6816831b784f20b size=75534152 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/pt-BR/Firefox%2520Setup%2520142.0.exe sha256=119f557e38e0dbbe1eb17f6005533fb448787d2f434842927e9af414a2781a84"}
+
+elseif {exists key whose (name of it as string contains "ru") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=f6f84f6d9f52bfa7436b3fa73516bf35610805f7 size=75824112 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/ru/Firefox%2520Setup%2520142.0.exe sha256=74987fb0ccda873b07a3618f5f886bf0aef9602258499a6c4f4ff140dfdb783f"}
+
+elseif {exists key whose (name of it as string contains "pl") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=5e73257b151ba64bf97a1568a0d7ab0300af48f8 size=76439832 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/pl/Firefox%2520Setup%2520142.0.exe sha256=c745505b3516a6c8c537af94126ff477e9ae7448e2c63b98b63b5ccfaaf84a69"}
+
+elseif {exists key whose (name of it as string contains "hu") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=007fbf1b8d68d633cc8504d92fd9ab0e52896c03 size=76004632 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/hu/Firefox%2520Setup%2520142.0.exe sha256=5fb1fb2b99f0ce57e94068b7a6ce25b359bc839aa01bb317dc46ba7a686bdefa"}
+
+elseif {exists key whose (name of it as string contains "cs") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=e7e8f7fdf48b40f3900eec4bde1e3e4e7fe305b8 size=75385336 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/cs/Firefox%2520Setup%2520142.0.exe sha256=0fc3754b8e9db9c07cb1a36b134707afa1d40168a46e43b6fd1b2da941ebe32a"}
+
+elseif {exists key whose (name of it as string contains "en-GB") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=3f6f3b8e877a35e77d7544f192a189239344783c size=75279480 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/en-GB/Firefox%2520Setup%2520142.0.exe sha256=70f37ca1c8f721281d555cbb925cdcee9df2adb2f22a31467b19ad73148df03d"}
+
+elseif {exists key whose (name of it as string contains "nl") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=f40e6bdc03c54edcee5dfe22511e914eae61debc size=76048688 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/nl/Firefox%2520Setup%2520142.0.exe sha256=edbb6d3ea54e8cad095db141510205dde130bef4f1e76add18e155399a6922ec"}
+
+
+elseif {exists key whose (name of it as string contains "en-CA") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=98b86aa6cbfbb28b3ae4bf06a46f93cea7aca25f size=75444888 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/en-CA/Firefox%2520Setup%2520142.0.exe sha256=d1284504a9c0ed35330fb64cf4391b9a8071729a0977a7f186ebe1aa376139e9"}
+
+
+elseif {exists key whose (name of it as string contains "es-MX") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of native registry}
+
+	add prefetch item {"name=Firefox_Setup_142.0.exe sha1=8ba542c965a7da79f0964ad4961ff87671439fbe size=75561896 url=https://ftp.mozilla.org/pub/firefox/releases/142.0/win64-aarch64/es-MX/Firefox%2520Setup%2520142.0.exe sha256=e79722caba89647ab66698d0ceb640b8b20872e55d32969401fdf4daca6baa4a"}
+
+endif
+endif
+
+collect prefetch items
+end prefetch block
+
+regset "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\FilesToDelete]" "MozillaFirefoxDesktopIcon"="{if (exists file ((value "Common Desktop" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" of registry as string)&"\Mozilla Firefox.lnk")) then "" else escape of (value "Common Desktop" of key "HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders" of registry as string & "\Mozilla Firefox.lnk")}"
+
+wait __Download\Firefox_Setup_142.0.exe -ms -ira -hideBanner -cleanUpOnUpgrade
+
+delete {value "MozillaFirefoxDesktopIcon" of key "HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\FilesToDelete" of registry as string}
+
+regdelete "[HKEY_LOCAL_MACHINE\SOFTWARE\BigFix\EnterpriseClient\FilesToDelete]" "MozillaFirefoxDesktopIcon"
+]]></ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[(((((((((if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )) AND (name of operating system as lowercase starts with "win")) AND (exists key whose (name of it as lowercase starts with "mozilla" AND exists key whose (name of it = "Mozilla Firefox") of it) of key "HKLM\SOFTWARE\" of x64 registry)) AND (not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry)) AND (exists name whose (it as string contains "en-US" OR it as string contains "fr" OR it as string contains "de" OR it as string contains "it" OR it as string contains "es-ES" OR it as string contains "zh-CN" OR it as string contains "ja" OR it as string contains "zh-TW" OR it as string contains "ko" OR it as string contains "pt-BR" OR it as string contains "ru" OR it as string contains "pl" OR it as string contains "hu" OR it as string contains "cs" OR it as string contains "en-GB" OR it as string contains "nl" OR it as string contains "en-CA" OR it as string contains "es-MX") of keys of keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of x64 registry)) AND (x64 of operating system)) AND ((exists regapp "firefox.exe" whose (product version of it < "142.0")) OR ((exists value "CurrentVersion" whose ((preceding text of first " " of (it as string)) as version < "142.0") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of x64 registry) AND (NOT exists value "CurrentVersion" whose ((preceding text of first " " of (it as string)) as version >= "142.0") of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox ESR" of it; keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of x64 registry)))) AND (NOT (name of it as uppercase contains "ESR") of key of (keys "HKEY_LOCAL_MACHINE\Software\Mozilla\Mozilla Firefox" of it) of x64 registry)) AND (exists version whose(it >= "10") of operating system)]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+				<BaselineComponent Name="Google Chrome 139.0.7258.155 Available" IncludeInRelevance="true" SourceSiteURL="http://sync.bigfix.com/cgi-bin/bfgather/updateswindowsapps" SourceID="14011706" SyncStatus="source fixlet differs" ActionName="Action1">
+					<ActionScript MIMEType="application/x-Fixlet-Windows-Shell"><![CDATA[// Check 64bit Chrome & x86_64 architecture
+if {(x64 of operating system) AND (exist architecture whose (it is "x86_64") of operating system)}
+
+prefetch googlechromestandaloneenterprise64.msi sha1:a15bdbdbcb9218e94126984aaa3d4b72f7f99deb size:136318976 https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B03FE9563-80F9-119F-DA3D-72FBBB94BC26%7D%26lang%3Den%26browser%3D4%26usagestats%3D0%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable%26brand=GCEA/dl/chrome/install/googlechromestandaloneenterprise64.msi sha256:d1a5269a18759fb98df6050abbfe518281527087c91539bb79d4dc4c453899d1
+
+wait msiexec.exe /q /I "__Download\googlechromestandaloneenterprise64.msi"
+
+action may require restart "a15bdbdbcb9218e94126984aaa3d4b72f7f99deb"
+
+// Check 64bit Chrome & ARM64 architecture
+elseif {(x64 of operating system) AND (exist architecture whose (it is "ARM64") of operating system)}
+
+prefetch GoogleChromeStandaloneEnterprise_Arm64.msi sha1:4e12c93bb5045738cc9d16e526ef63756668fdde size:141262848 https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7BD6F861EE-6AC1-CC69-362F-CE89840C1E6D%7D%26lang%3Den%26browser%3D3%26usagestats%3D0%26appname%3DGoogle%2520Chrome%26needsadmin%3Dtrue%26ap%3Darm64-stable-statsdef_0%26brand%3DGCOT/dl/chrome/install/GoogleChromeStandaloneEnterprise_Arm64.msi sha256:92b1d82b57c299c4fccb1d0985f2c5e6dd5e346965da9067e23a5e0686e22815
+
+wait msiexec.exe /q /I "__Download\GoogleChromeStandaloneEnterprise_Arm64.msi"
+
+action may require restart "4e12c93bb5045738cc9d16e526ef63756668fdde"
+
+// Otherwise should be 32bit
+else
+prefetch googlechromestandaloneenterprise.msi sha1:bf658d0383a3b8f149cab32264883777d40fd9f4 size:123424768 https://dl.google.com/tag/s/appguid%3D%7B8A69D345-D564-463C-AFF1-A69D9E530F96%7D%26iid%3D%7B03FE9563-80F9-119F-DA3D-72FBBB94BC26%7D%26lang%3Den%26browser%3D4%26usagestats%3D0%26appname%3DGoogle%2520Chrome%26needsadmin%3Dprefers%26ap%3Dx64-stable%26brand=GCEA/dl/chrome/install/googlechromestandaloneenterprise.msi sha256:b4d93cc2a17564ff414f14d0f9583408f5ab67c4cf581c809f74814831f1ac86
+
+wait msiexec.exe /q /I "__Download\googlechromestandaloneenterprise.msi"
+
+action may require restart "bf658d0383a3b8f149cab32264883777d40fd9f4"
+endif
+]]></ActionScript>
+					<SuccessCriteria Option="OriginalRelevance"></SuccessCriteria>
+					<Relevance><![CDATA[(((((((if( name of operating system starts with "Win" ) then platform id of operating system != 3 else false) AND (if exists property "in proxy agent context" then ( not in proxy agent context ) else true )) AND (name of operating system as lowercase starts with "win")) AND (not exists values "PROCESSOR_ARCHITECTURE" whose (it as string as lowercase = "ia64") of keys "HKLM\SYSTEM\CurrentControlSet\Control\Session Manager\Environment" of registry)) AND (exists regapp "chrome.exe")) AND (version of client >= "7")) AND ((exists key whose ((value "name" of it as string = "Google %c5%a9%b7%d2" or value "name" of it as string = "Chrome" or value "name" of it as string = "Google Chrome") and value "pv" of it as string as version < "139.0.7258.155") of keys "HKEY_LOCAL_MACHINE\Software\Google\Update\Clients" of registry) OR (exists key whose (( value "DisplayName" of it as string = "Chrome" or value "DisplayName" of it as string = "Google Chrome") and value "DisplayVersion" of it as string as version < "139.0.7258.155") of keys "HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall" of native registry))) AND (exists build number whose (it >= 10240) of operating system)]]></Relevance>
+					<Delay>PT1S</Delay>
+				</BaselineComponent>
+			</BaselineComponentGroup>
+		</BaselineComponentCollection>
+	</Baseline>
+</BES>

@@ -4,7 +4,7 @@
 
 Compile a python BigFix Server Plugin Service to a binary using PyInstaller
 
-## Setup Environment
+## Setup Environment:
 
 Install pyinstaller:
 
@@ -39,3 +39,22 @@ From the folder `C:\Program Files (x86)\BigFix Enterprise\BES Server\Application
 Copy the `baseline_sync_plugin.exe` file to the created folder: `C:\Program Files (x86)\BigFix Enterprise\BES Server\Applications\baseline_sync_plugin`
 
 Copy the `baseline_sync_plugin.xml` file to the config folder: `C:\Program Files (x86)\BigFix Enterprise\BES Server\Applications\Config`
+
+## Import outdated baseline:
+
+Import an outdated baseline so that it can be synced by the plugin.
+
+Import `Lab_4/example_baseline_outdated.bes` into the BigFix Console.
+
+Check the components of the baseline and note how they are out of date.
+
+- Mozilla Firefox (x64) 142.0
+- Google Chrome 139.0.7258.155
+
+## Trigger update of baseline:
+
+edit the file `C:\Program Files (x86)\BigFix Enterprise\BES Server\Applications\Config\baseline_sync_plugin.xml`
+
+so that this: `<WaitPeriodSeconds>6000</WaitPeriodSeconds>`
+
+is changed to: `<WaitPeriodSeconds>60</WaitPeriodSeconds>`
