@@ -44,12 +44,12 @@ Copy the `baseline_sync_plugin.xml` file to the config folder: `C:\Program Files
 
 Import an outdated baseline so that it can be synced by the plugin.
 
-Import `Lab_4/example_baseline_outdated.bes` into the BigFix Console.
+Import `Lab_4/example_baseline_outdated.bes` into the BigFix Console. (do not import into the master action site)
 
 Check the components of the baseline and note how they are out of date.
 
 - DB Browser for SQLite v3.13.1
-- Node.js v24.6.0
+- Docker Desktop v4.45.0
 
 And others
 
@@ -60,3 +60,7 @@ edit the file `C:\Program Files (x86)\BigFix Enterprise\BES Server\Applications\
 so that this: `<WaitPeriodSeconds>6000</WaitPeriodSeconds>`
 
 is changed to: `<WaitPeriodSeconds>60</WaitPeriodSeconds>`
+
+Now check the plugin log file.
+
+Now check the baseline components to see that they have been synced.
