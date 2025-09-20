@@ -33,3 +33,7 @@ If `computer_group_output.log` does not exist, then that means the plugin servic
 The `computer_group_output.log` should show messages of the `computer_group_output.py` plugin running.
 
 You should also see files for each group output to the plugin's folder.
+
+## Next Lab:
+
+[Lab 4](../Lab_4/README.md)
