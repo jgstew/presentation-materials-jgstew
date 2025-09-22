@@ -131,7 +131,7 @@ def main():
 
         # write group members to file
         file_name = os.path.join(invoke_folder, f"{group_name}.txt")
-        logging.debug("Writing to file: %s", file_name)
+        logging.debug('Writing to file: "%s"', file_name)
         with open(file_name, "w", encoding="utf-8") as f:
             f.writelines("\n".join(group_members))
 
