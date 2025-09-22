@@ -4,7 +4,7 @@
     {
       "label": "git pull on folder open",
       "type": "shell",
-      "command": "git pull",
+      "command": "git config pull.rebase true; git config rebase.autoStash true; git pull",
       "runOptions": {
         "runOn": "folderOpen"
       },
