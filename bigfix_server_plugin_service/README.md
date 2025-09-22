@@ -9,3 +9,7 @@ Open [plugin_service.code-workspace](plugin_service.code-workspace) in Visual St
 - [Lab 1](Lab_1/README.md)
 - [Lab 2](Lab_2/README.md)
 - [Lab 3](Lab_3/README.md)
+
+## Presentation:
+
+- [BigFix Server Plugin Services and Labs](https://docs.google.com/presentation/d/1qIqKnzRQ-RpIEvf0MJ5ywZ7_Nf0ftJptEQS9t-nXjGE/edit?usp=sharing)
