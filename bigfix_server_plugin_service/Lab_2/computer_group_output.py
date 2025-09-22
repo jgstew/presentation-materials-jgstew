@@ -130,7 +130,9 @@ def main():
         logging.debug("GroupMembers: %s", string_truncate(group_members_str))
 
         # write group members to file
-        with open(f"{group_name}.txt", "w", encoding="utf-8") as f:
+        file_name = os.path.join(invoke_folder, f"{group_name}.txt")
+        logging.debug("Writing to file: %s", file_name)
+        with open(file_name, "w", encoding="utf-8") as f:
             f.writelines("\n".join(group_members))
 
     logging.log(99, "---------- Ending Session -----------")
