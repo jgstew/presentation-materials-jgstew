@@ -12,6 +12,12 @@ Check MFS log here: `C:\Program Files (x86)\BigFix Enterprise\BES Server\Applica
 
 Once it has run, check the contents of file `C:\tmp\bigfix_example_plugin_output.txt`
 
+Notice in [`fake_example_win.xml`](fake_example_win.xml) in the `<Command>` section, you see `%BESHTTP%` but
+
+Notice in `C:\tmp\bigfix_example_plugin_output.txt` you instead see `http://besfndwinroot:52311` or similar.
+
+This is because the BigFix Server Plugin Service knows to substitute those special variables for you.
+
 ## Next Lab:
 
 [Lab 2](../Lab_2/README.md)
