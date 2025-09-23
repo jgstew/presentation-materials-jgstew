@@ -2,6 +2,10 @@
 
 [Lab 1 Folder](../Lab_1/)
 
+Setup fake example plugin
+
+NOTE: if you are not doing this from a root server already configured for the Plugin Service, you may need to do some prerequisites. See [Lab 0](../Lab_0/README.md)
+
 ## For Windows Root Servers:
 
 Copy [`fake_example_win.xml`](fake_example_win.xml) file to `C:\Program Files (x86)\BigFix Enterprise\BES Server\Applications\Config` folder

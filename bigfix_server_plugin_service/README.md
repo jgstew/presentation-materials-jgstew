@@ -6,9 +6,11 @@ Open [plugin_service.code-workspace](plugin_service.code-workspace) in Visual St
 
 ## Labs
 
-- [Lab 1](Lab_1/README.md)
-- [Lab 2](Lab_2/README.md)
-- [Lab 3](Lab_3/README.md)
+- [Lab 1: Setup Fake Example](Lab_1/README.md)
+- [Lab 2: Run Example as Script](Lab_2/README.md)
+- [Lab 3: Run Example as Plugin](Lab_3/README.md)
+- [Lab 4: Compile Example as EXE and run as Plugin](Lab_3/README.md)
+- [Lab 5: Try making your own Plugin](Lab_3/README.md)
 
 ## Presentation:
 
