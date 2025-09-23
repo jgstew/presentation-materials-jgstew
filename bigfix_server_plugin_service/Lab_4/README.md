@@ -64,3 +64,7 @@ is changed to: `<WaitPeriodSeconds>60</WaitPeriodSeconds>`
 Now check the plugin log file.
 
 Now check the baseline components to see that they have been synced.
+
+## Next Lab:
+
+[Lab 5](../Lab_5/README.md)
