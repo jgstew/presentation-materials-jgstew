@@ -14,4 +14,5 @@ Open [plugin_service.code-workspace](plugin_service.code-workspace) in Visual St
 
 ## Presentation:
 
-- [BigFix Server Plugin Services and Labs](https://docs.google.com/presentation/d/1qIqKnzRQ-RpIEvf0MJ5ywZ7_Nf0ftJptEQS9t-nXjGE/edit?usp=sharing)
+- [BigFix Server Plugin Services and Labs Presentation](https://docs.google.com/presentation/d/1qIqKnzRQ-RpIEvf0MJ5ywZ7_Nf0ftJptEQS9t-nXjGE/edit?usp=sharing)
+- [BigFix Server Plugin Services Lab Guide](https://docs.google.com/document/d/1jX6U1ZogQYfZEG-kcVzw4nzBGnY0HcJv1jYaGix_V6Y/edit?usp=sharing)
